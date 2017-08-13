@@ -17,7 +17,7 @@ const customers = [
 
 
 // Customer Type
-const CustomerType= new GraphQLOBjectType({
+const CustomerType= new GraphQLObjectType({
 	name: 'Customer',
 	fields: () => ({
 		id: {type: GraphQLString},
@@ -50,5 +50,5 @@ const RootQuery = new GraphQLObjectType({
 
 
 module.exports = new GraphQLSchema({
-
+	query: RootQuery
 });
