@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const {
 	GraphQLObjectType,
 	GraphQLString,
@@ -6,7 +8,7 @@ const {
 	GraphQLList,
 	GraphQLNonNull
 } = require('graphql');
-
+	
 // // Hardcoded data
 // const customers = [
 // 	{id: '1', name: "Nikhil Arora", email: 'nikhil@gmail.com', age: 20},
@@ -48,11 +50,14 @@ const RootQuery = new GraphQLObjectType({
 				}
 			},
 			resolve(parentValue, args) {
-				for (let i = 0; i < customers.length; i++) {
-					if (customers[i].id == args.id) {
-						return customers[i];
-					}
-				}
+				// for (let i = 0; i < customers.length; i++) {
+				// 	if (customers[i].id == args.id) {
+				// 		return customers[i];
+				// 	}
+				// }
+				
+				return axios.get('http://localhost:3000/customers/' + args.id)
+						.then(res => res.data);
 			}
 		},
 		customers: {
