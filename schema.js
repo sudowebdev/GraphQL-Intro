@@ -7,12 +7,12 @@ const {
 	GraphQLNonNull
 } = require('graphql');
 
-// Hardcoded data
-const customers = [
-	{id: '1', name: "Nikhil Arora", email: 'nikhil@gmail.com', age: 20},
-	{id: '2', name: "Saumya Tiwari", email: 'saumya@gmail.com', age: 21},
-	{id: '3', name: "Dalip Thakkar", email: 'dalip@gmail.com', age: 20}
-];
+// // Hardcoded data
+// const customers = [
+// 	{id: '1', name: "Nikhil Arora", email: 'nikhil@gmail.com', age: 20},
+// 	{id: '2', name: "Saumya Tiwari", email: 'saumya@gmail.com', age: 21},
+// 	{id: '3', name: "Dalip Thakkar", email: 'dalip@gmail.com', age: 20}
+// ];
 
 
 
@@ -20,10 +20,18 @@ const customers = [
 const CustomerType = new GraphQLObjectType({
 	name: 'Customer',
 	fields: () => ({
-		id: {type: GraphQLString},
-		name: {type: GraphQLString},
-		email: {type: GraphQLString},
-		age: {type: GraphQLInt}
+		id: {
+			type: GraphQLString
+		},
+		name: {
+			type: GraphQLString
+		},
+		email: {
+			type: GraphQLString
+		},
+		age: {
+			type: GraphQLInt
+		}
 	})
 })
 
@@ -35,22 +43,24 @@ const RootQuery = new GraphQLObjectType({
 		customer: {
 			type: CustomerType,
 			args: {
-				id: {type: GraphQLString}
+				id: {
+					type: GraphQLString
+				}
 			},
 			resolve(parentValue, args) {
-				for(let i=0; i<customers.length; i++){
-					if(customers[i].id == args.id){
+				for (let i = 0; i < customers.length; i++) {
+					if (customers[i].id == args.id) {
 						return customers[i];
 					}
 				}
 			}
 		},
-		 customers:{
-            type: new GraphQLList(CustomerType),
-            resolve(parentValue, args){
-                return customers;
-            }
-		 }
+		customers: {
+			type: new GraphQLList(CustomerType),
+			resolve(parentValue, args) {
+				return customers;
+			}
+		}
 	}
 })
 
